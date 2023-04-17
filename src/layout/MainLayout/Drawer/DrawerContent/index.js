@@ -18,14 +18,7 @@ const DrawerContent = () => {
   const { drawerOpen } = menu;
 
   return (
-    <SimpleBar
-      sx={{
-        '& .simplebar-content': {
-          display: 'flex',
-          flexDirection: 'column'
-        }
-      }}
-    >
+    <SimpleBar>
       <Navigation />
       {drawerOpen && !matchDownMD && <NavCard />}
     </SimpleBar>

@@ -10,6 +10,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'styles/apex-chart.css';
 import 'styles/react-table.css';
 
+import { LicenseInfo } from '@mui/x-data-grid-pro';
+
 // next
 // import { SessionProvider } from 'next-auth/react';
 
@@ -34,6 +36,15 @@ import { ConfigProvider } from 'contexts/ConfigContext';
 import { store, persister, dispatch } from 'store';
 import { fetchDashboard } from 'store/reducers/menu';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+
+LicenseInfo.setLicenseKey(process.env.NEXT_PUBLIC_MUI_PREMIUM_LICENSE);
+
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const [supabase] = useState(() => createBrowserSupabaseClient());
@@ -50,24 +61,26 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ReduxProvider store={store}>
-      <PersistGate loading={null} persistor={persister}>
-        <ConfigProvider>
-          <ThemeCustomization>
-            <RTLLayout>
-              <Locales>
-                <ScrollTop>
-                  <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession} refetchInterval={0}>
-                    <Notistack>
-                      <Snackbar />
-                      {getLayout(<Component {...pageProps} />)}
-                    </Notistack>
-                  </SessionContextProvider>
-                </ScrollTop>
-              </Locales>
-            </RTLLayout>
-          </ThemeCustomization>
-        </ConfigProvider>
-      </PersistGate>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <PersistGate loading={null} persistor={persister}>
+          <ConfigProvider>
+            <ThemeCustomization>
+              <RTLLayout>
+                <Locales>
+                  <ScrollTop>
+                    <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession} refetchInterval={0}>
+                      <Notistack>
+                        <Snackbar />
+                        {getLayout(<Component {...pageProps} />)}
+                      </Notistack>
+                    </SessionContextProvider>
+                  </ScrollTop>
+                </Locales>
+              </RTLLayout>
+            </ThemeCustomization>
+          </ConfigProvider>
+        </PersistGate>
+      </LocalizationProvider>
     </ReduxProvider>
   );
 }

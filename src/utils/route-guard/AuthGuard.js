@@ -4,39 +4,31 @@ import { useEffect } from 'react';
 // next
 import { useRouter } from 'next/router';
 // import { useSession } from 'next-auth/react';
-import { useSession } from '@supabase/auth-helpers-react';
-
+import { useUser, useSessionContext } from '@supabase/auth-helpers-react';
 // types
 import Loader from 'components/Loader';
+// import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
 // ==============================|| AUTH GUARD ||============================== //
 
 const AuthGuard = ({ children }) => {
-  const session = useSession();
   const router = useRouter();
-  // const user = useUser();
+  const { isLoading, session } = useSessionContext();
+  // const supabaseClient = useSupabaseClient()
+  const user = useUser();
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const res = await fetch('/api/auth/protected');
-    //   const json = await res.json();
-    //   if (!json.protected) {
-    //     router.push({
-    //       pathname: '/login',
-    //       query: { from: router.asPath }
-    //     });
-    //   }
-    // };
-    // fetchData();
-    // eslint-disable-next-line
-    if (session === null)
+    console.log({ Loading: isLoading, User: user });
+    if (!isLoading && !user) {
+      console.log({ Loading: isLoading, AuthGuardUser: user, RouterIsReady: router.isReady, Session: session });
       router.push({
         pathname: '/login',
         query: { from: router.asPath }
       });
-  }, [session]);
+    }
+  }, [isLoading, session, user]);
 
-  if (status === 'loading' || !session?.user) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return children;
 };

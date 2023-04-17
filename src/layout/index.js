@@ -46,6 +46,8 @@ export default function Layout({ variant = 'main', children }) {
   const menu = useSelector((state) => state.menu);
   const { componentDrawerOpen } = menu;
 
+  console.log({ Layout: variant });
+
   const handleDrawerOpen = () => {
     dispatch(openComponentDrawer({ componentDrawerOpen: !componentDrawerOpen }));
   };

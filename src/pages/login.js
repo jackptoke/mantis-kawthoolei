@@ -14,6 +14,7 @@ import AuthWrapper from 'sections/auth/AuthWrapper';
 import AuthLogin from 'sections/auth/auth-forms/AuthLogin';
 
 export default function SignIn({ providers, csrfToken }) {
+  console.log('Sign in page');
   return (
     <Page title="Login">
       <AuthWrapper>

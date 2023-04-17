@@ -21,7 +21,7 @@ export const DashboardMenu = () => {
     return SubChildrenLis?.map((subList) => {
       return {
         ...subList,
-        title: <FormattedMessage id={`${subList.title}`} />,
+        title: <FormattedMessage id={`${subList.title}`} defaultMessage={subList.title} />,
         // @ts-ignore
         icon: icons[subList.icon]
       };
@@ -31,7 +31,7 @@ export const DashboardMenu = () => {
   const menuList = (subList) => {
     let list = {
       ...subList,
-      title: <FormattedMessage id={`${subList.title}`} />,
+      title: <FormattedMessage id={`${subList.title}`} defaultMessage={subList.title} />,
       // @ts-ignore
       icon: icons[subList.icon]
     };
@@ -47,7 +47,7 @@ export const DashboardMenu = () => {
 
   const dashboardList = {
     ...menuDashboard,
-    title: <FormattedMessage id={`${menuDashboard.title}`} />,
+    title: <FormattedMessage id={`${menuDashboard.title}`} defaultMessage={menuDashboard.title} />,
     icon: icons[menuDashboard.icon],
     children: ChildrenList
   };

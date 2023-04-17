@@ -50,24 +50,13 @@ const Profile = () => {
   const supabaseClient = useSupabaseClient();
 
   const session = useSession();
-  const provider = session?.provider;
+  console.log({ HeaderProfileSession: session });
+  // const provider = session?.provider;
 
   const handleLogout = () => {
     console.log({ session: session });
-    switch (provider) {
-      case 'google':
-        supabaseClient.auth.signOut();
-        break;
-      case 'auth0':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/auth0` });
-        break;
-      case 'cognito':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/cognito` });
-        break;
-      default:
-        // signOut({ redirect: false });
-        supabaseClient.auth.signOut();
-    }
+
+    supabaseClient.auth.signOut();
   };
 
   const anchorRef = useRef(null);
@@ -91,7 +80,7 @@ const Profile = () => {
 
   const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
 
-  return (
+  return user && user ? (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <ButtonBase
         sx={{
@@ -212,6 +201,8 @@ const Profile = () => {
         )}
       </Popper>
     </Box>
+  ) : (
+    <></>
   );
 };
 

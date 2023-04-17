@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 // next
 import { useRouter } from 'next/router';
 // import { useSession } from 'next-auth/react';
-import { useSession } from '@supabase/auth-helpers-react';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 
 // project import
 import { DEFAULT_PATH } from 'config';
@@ -15,8 +15,8 @@ import Loader from 'components/Loader';
 // ==============================|| GUEST GUARD ||============================== //
 
 const GuestGuard = ({ children }) => {
-  const session = useSession();
   const router = useRouter();
+  const { isLoading, session } = useSessionContext();
 
   useEffect(() => {
     console.log({ Session: session });
@@ -36,7 +36,7 @@ const GuestGuard = ({ children }) => {
     // eslint-disable-next-line
   }, [session]);
 
-  if (status === 'loading' || session?.user) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return children;
 };

@@ -9,7 +9,6 @@ import { Box, Container, Toolbar, useMediaQuery } from '@mui/material';
 // project import
 import Drawer from './Drawer';
 import Header from './Header';
-import Footer from './Footer';
 import navigation from 'menu-items';
 import useConfig from 'hooks/useConfig';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
@@ -17,11 +16,14 @@ import HorizontalBar from './Drawer/HorizontalBar';
 
 import { openDrawer } from 'store/reducers/menu';
 import { LAYOUT_CONST } from 'config';
+// import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = ({ children }) => {
   const theme = useTheme();
+  // const [supabase] = useState(() => createBrowserSupabaseClient());
+
   const matchDownLG = useMediaQuery(theme.breakpoints.down('xl'));
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -39,6 +41,12 @@ const MainLayout = ({ children }) => {
     setOpen(!open);
     dispatch(openDrawer({ drawerOpen: !open }));
   };
+
+  // useEffect(() => {
+  //   supabase.auth.onAuthStateChange(() => {
+  //     router.refresh()
+  //   });
+  // }, []);
 
   // set media wise responsive drawer
   useEffect(() => {
@@ -72,7 +80,6 @@ const MainLayout = ({ children }) => {
         >
           <Breadcrumbs navigation={navigation} title titleBottom card={false} divider={false} />
           {children}
-          <Footer />
         </Container>
       </Box>
     </Box>

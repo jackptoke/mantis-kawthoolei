@@ -75,7 +75,7 @@ const status = [
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
-
+  console.log('Default Dashboard');
   return (
     <Page title="Default Dashboard">
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>

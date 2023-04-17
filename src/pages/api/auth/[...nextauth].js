@@ -1,8 +1,6 @@
 // next
 import NextAuth from 'next-auth';
-import Auth0Provider from 'next-auth/providers/auth0';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import CognitoProvider from 'next-auth/providers/cognito';
 import GoogleProvider from 'next-auth/providers/google';
 
 // third-party
@@ -20,18 +18,6 @@ export let users = [
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET_KEY,
   providers: [
-    Auth0Provider({
-      name: 'Auth0',
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: `https://${process.env.AUTH0_DOMAIN}`
-    }),
-    CognitoProvider({
-      name: 'Cognito',
-      clientId: process.env.COGNITO_CLIENT_ID,
-      clientSecret: process.env.COGNITO_CLIENT_SECRET,
-      issuer: `https://cognito-idp.${process.env.COGNITO_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`
-    }),
     GoogleProvider({
       name: 'Google',
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -63,6 +49,8 @@ export default NextAuth({
             email: credentials?.email
           });
 
+          console.log({ NextAuthAuthorize: user });
+
           if (user) {
             return user.data;
           }
@@ -93,6 +81,8 @@ export default NextAuth({
             email: credentials?.email
           });
 
+          console.log('Credentials Provider [...nextauth]');
+
           if (user) {
             users.push(user.data);
             return user.data;
@@ -106,6 +96,7 @@ export default NextAuth({
   ],
   callbacks: {
     jwt: ({ token, user, account }) => {
+      console.log({ CallbacksJWT: token });
       if (user) {
         token.id = user.id;
         token.provider = account?.provider;
@@ -113,6 +104,7 @@ export default NextAuth({
       return token;
     },
     session: ({ session, token }) => {
+      console.log({ CallbackSession: session, CallbackToken: token });
       if (token) {
         session.id = token.id;
         session.provider = token.provider;

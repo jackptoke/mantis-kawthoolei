@@ -41,7 +41,8 @@ import AcquisitionChannels from 'sections/dashboard/analytics/AcquisitionChannel
 
 // assets
 import { DownloadOutlined, CaretDownOutlined } from '@ant-design/icons';
-
+// import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
+// import { headers, cookies } from 'next/headers';
 // sales report status
 const status = [
   {
@@ -62,6 +63,7 @@ const status = [
 
 const DashboardAnalytics = () => {
   const theme = useTheme();
+  // const supabase = createServerComponentSupabaseClient({ headers, cookies });
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
   const [quantity, setQuantity] = useState('By volume');

@@ -5,6 +5,7 @@ import { users } from './[...nextauth]';
 export default async function handler(req, res) {
   try {
     const { email, password } = req.body;
+    console.log({ ReqBody: req.body });
 
     const user = users.find((_user) => _user.email === email);
 

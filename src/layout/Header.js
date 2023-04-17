@@ -78,7 +78,7 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
     }
     setDrawerToggle(open);
   };
-
+  console.log({ Header: session });
   return (
     <ElevationScroll layout={layout} {...others}>
       <AppBar sx={{ bgcolor: 'transparent', color: theme.palette.text.primary, boxShadow: 'none' }}>
@@ -125,7 +125,7 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
                     }
                   }}
                   supabaseClient={supabase}
-                  providers={['google', 'azure']}
+                  providers={['google']}
                   socialLayout="horizontal"
                 />
               )}
@@ -247,19 +247,6 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
                           <LineOutlined />
                         </ListItemIcon>
                         <ListItemText primary="Support" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
-                      </ListItemButton>
-                    </Link>
-                    <Link
-                      style={{ textDecoration: 'none' }}
-                      href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
-                      target="_blank"
-                    >
-                      <ListItemButton component="span">
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="Purchase Now" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
-                        <Chip color="primary" label="v1.0" size="small" />
                       </ListItemButton>
                     </Link>
                   </List>
